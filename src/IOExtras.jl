@@ -44,44 +44,25 @@ nbytes(x::IOBuffer) = bytesavailable(x)
 nbytes(x::Vector{IOBuffer}) = sum(bytesavailable, x)
 
 _doc = """
-    startwrite(::IO)
-    closewrite(::IO)
-    startread(::IO)
-    closeread(::IO)
+    startwrite
+    closewrite
+    startread
+    closeread
 
 Signal start/end of write or read operations.
 """
-@static if isdefined(Base, :startwrite)
-    "$_doc"
-    Base.startwrite(io) = nothing
-else
-    "$_doc"
-    startwrite(io) = nothing
-end
 
-@static if isdefined(Base, :closewrite)
-    "$_doc"
-    Base.closewrite(io) = nothing
-else
-    "$_doc"
-    closewrite(io) = nothing
-end
+"$_doc"
+function startwrite end
 
-@static if isdefined(Base, :startread)
-    "$_doc"
-    Base.startread(io) = nothing
-else
-    "$_doc"
-    startread(io) = nothing
-end
+"$_doc"
+function closewrite end
 
-@static if isdefined(Base, :closeread)
-    "$_doc"
-    Base.closeread(io) = nothing
-else
-    "$_doc"
-    closeread(io) = nothing
-end
+"$_doc"
+function startread end
+
+"$_doc"
+function closeread end
 
 tcpsocket(io::SSLContext)::TCPSocket = io.bio
 tcpsocket(io::SSLStream)::TCPSocket = io.io

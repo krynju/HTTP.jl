@@ -242,7 +242,7 @@ end
             @sync begin
                 @async begin
                     write(http, "Hello World!")
-                    closewrite(http)
+                    IOExtras.closewrite(http)
                     body_sent[] = true
                 end
                 startread(http)
@@ -268,7 +268,7 @@ end
                     @async try
                         wait(event)
                         write(http, "Hello World!")
-                        closewrite(http)
+                        IOExtras.closewrite(http)
                         body_sent = true
                     catch e
                         if e isa ArgumentError &&

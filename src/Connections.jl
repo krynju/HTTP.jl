@@ -316,7 +316,7 @@ Base.wait_close(c::Connection) = Base.wait_close(tcpsocket(c.io))
 
 function Base.close(c::Connection)
     if iswritable(c)
-        closewrite(c)
+        IOExtras.closewrite(c)
     end
     if isreadable(c)
         closeread(c)

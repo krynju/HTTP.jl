@@ -461,7 +461,7 @@ function handle_connection(f, c::Connection, listener, readtimeout, access_log)
                 @debugv 1 "closeread"
                 closeread(http)
                 @debugv 1 "closewrite"
-                closewrite(http)
+                IOExtras.closewrite(http)
                 c.state = IDLE
             catch e
                 # The remote can close the stream whenever it wants to, but there's nothing
@@ -475,7 +475,7 @@ function handle_connection(f, c::Connection, listener, readtimeout, access_log)
                 if isopen(http) && !iswritable(http)
                     request.response.status = 500
                     startwrite(http)
-                    closewrite(http)
+                    IOExtras.closewrite(http)
                 end
                 c.state = CLOSING
             finally

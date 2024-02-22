@@ -117,14 +117,14 @@ function IOExtras.closewrite(http::Stream{<:Response})
         return
     end
     closebody(http)
-    closewrite(http.stream)
+    IOExtras.closewrite(http.stream)
 end
 
 function IOExtras.closewrite(http::Stream{<:Request})
 
     if iswritable(http)
         closebody(http)
-        closewrite(http.stream)
+        IOExtras.closewrite(http.stream)
     end
 
     if hasheader(http.message, "Connection", "close") ||

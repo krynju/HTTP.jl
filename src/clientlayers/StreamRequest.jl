@@ -43,7 +43,7 @@ function streamlayer(stream::Stream; iofunction=nothing, decompress::Union{Nothi
                         req.context[:write_duration_ms] = get(req.context, :write_duration_ms, 0.0) + ((time() - write_start) * 1000)
                     end
                     @debugv 2 "client closewrite"
-                    closewrite(stream)
+                    IOExtras.closewrite(stream)
                 end
                 read_start = time()
                 Threads.@spawn try
@@ -63,7 +63,7 @@ function streamlayer(stream::Stream; iofunction=nothing, decompress::Union{Nothi
                 try
                     iofunction(stream)
                 finally
-                    closewrite(stream)
+                    IOExtras.closewrite(stream)
                     closeread(stream)
                 end
             end
